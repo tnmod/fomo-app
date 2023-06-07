@@ -27,7 +27,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import Spflashscreen from './src/screens/Spflashscreen';
 import { styled } from 'nativewind'
-import Home from './src/screens/Home';
+import Home from './src/screens/HomeScreen';
 import TransactionScreen from './src/screens/TransactionScreen';
 import StackNavagator from './src/navigation/StackNavagator';
 

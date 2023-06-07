@@ -5,6 +5,7 @@ import { styled } from 'nativewind';
 import { Popins } from '../utils/popins';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { ProgressBar } from '@react-native-community/progress-bar-android';
+import { useNavigation } from '@react-navigation/native';
 
 
 const TextTw = styled(Text);
@@ -29,8 +30,8 @@ const formatNumber = (number) => {
   return formattedString;
 };
 
-const Home = () => {
-
+const HomeScreen = () => {
+  const navigation = useNavigation();
   const [progressValue, setPValue] = useState(50);
 
   //Total:
@@ -38,7 +39,7 @@ const Home = () => {
 
 
   const [Income, setIncome] = useState(10000000);
-  const [Spending, setSpending] = useState(0);
+  const [Expence, setExpense] = useState(0);
 
   //6Jar
   const [essentials, setEssentials] = useState(5420000);
@@ -78,7 +79,7 @@ const Home = () => {
   //format cho đúng
   const formattedTotal = formatNumber(totalMoney);
   const formattedIncome = formatNumber(Income);
-  const formattedSpending = formatNumber(Spending);
+  const formattedSpending = formatNumber(Expence);
   const formatedEssentials = formatNumber(essentials);
   const formatedEducation = formatNumber(education);
   const formatedSavings = formatNumber(savings);
@@ -89,6 +90,10 @@ const Home = () => {
   useEffect(() => {
     setTotalMoney(essentialsOld + educationOld + enjoymentOld + savingsOld + charityOld + investmentOld);
   }, [])
+
+  const moveScreen = (params) => {
+    navigation.navigate("TransactionScreen");
+  }
 
   return (
     <ScrollView overScrollMode='never' showsVerticalScrollIndicator={false}>
@@ -135,7 +140,7 @@ const Home = () => {
             <ViewTw className='flex-row items-center'>
               <ImageTw className='w-6 h-6 grow-0' style={{ tintColor: '#008000' }} source={require('../assets/icon/Finance/credit-card.png')} />
               <TextTw className='text-gray-400 grow text-base ml-2'>Thu nhập</TextTw>
-              <TouchableOpacityTw className='w-6 h-6 grow-0'>
+              <TouchableOpacityTw onPress={() => moveScreen(1)} className='w-6 h-6 grow-0'>
                 <ImageTw className='w-full h-full' style={{ tintColor: '#dee2e6' }} source={require('../assets/icon/System/plus.png')} />
               </TouchableOpacityTw>
             </ViewTw>
@@ -295,6 +300,6 @@ const Home = () => {
   )
 }
 
-export default Home
+export default HomeScreen
 
 const styles = StyleSheet.create({})
