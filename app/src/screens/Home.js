@@ -1,7 +1,7 @@
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import LinearGradient from 'react-native-linear-gradient';
-import { styled } from 'nativewind'
+import { styled } from 'nativewind';
 import { Popins } from '../utils/popins';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { ProgressBar } from '@react-native-community/progress-bar-android';
@@ -34,27 +34,27 @@ const Home = () => {
   const [progressValue, setPValue] = useState(50);
 
   //Total:
-  const [totalMoney, setMoney] = useState(10000);
+  const [totalMoney, setTotalMoney] = useState(0);
 
-  const [Income, setIncome] = useState(10000);
+
+  const [Income, setIncome] = useState(10000000);
   const [Spending, setSpending] = useState(0);
 
   //6Jar
-  const [essentials, setEssentials] = useState(5000);
-  const [education, setEducation] = useState(99);
-  const [savings, setSavings] = useState(1000);
-  const [enjoyment, setEnjoyment] = useState(100);
-  const [investment, setInvestment] = useState(500);
-  const [charity, setCharity] = useState(500);
-
+  const [essentials, setEssentials] = useState(5420000);
+  const [education, setEducation] = useState(99000);
+  const [savings, setSavings] = useState(755000);
+  const [enjoyment, setEnjoyment] = useState(100000);
+  const [investment, setInvestment] = useState(523232);
+  const [charity, setCharity] = useState(320000);
 
   //6Jar old
-  const [essentialsOld, setEssentialsOld] = useState(5500);
-  const [educationOld, setEducationOld] = useState(1000);
-  const [savingsOld, setSavingsOld] = useState(1000);
-  const [enjoymentOld, setEnjoymentOld] = useState(1000);
-  const [investmentOld, setInvestmentOld] = useState(1000);
-  const [charityOld, setCharityOld] = useState(500);
+  const [essentialsOld, setEssentialsOld] = useState(5500000);
+  const [educationOld, setEducationOld] = useState(1000000);
+  const [savingsOld, setSavingsOld] = useState(1000000);
+  const [enjoymentOld, setEnjoymentOld] = useState(1000000);
+  const [investmentOld, setInvestmentOld] = useState(1000000);
+  const [charityOld, setCharityOld] = useState(500000);
 
   //%defaul
   const [essentialsPercent, setEssentialsPercent] = useState(55);
@@ -86,14 +86,18 @@ const Home = () => {
   const formatedInvestment = formatNumber(investment);
   const formatedCharity = formatNumber(charity);
 
+  useEffect(() => {
+    setTotalMoney(essentialsOld + educationOld + enjoymentOld + savingsOld + charityOld + investmentOld);
+  }, [])
+
   return (
-    <ScrollView>
-      <ViewTw className='p-5 mb-6'>
+    <ScrollView overScrollMode='never' showsVerticalScrollIndicator={false}>
+      <ViewTw className='p-5 mb-6' style={{ backgroundColor: "#0f172a" }}>
         <ViewTw className='flex-row items-center'>
           <ImageTw className='w-12 h-12 rounded-full grow-0' source={require('../assets/images/potter.jpg')} />
           <ViewTw className='grow px-4 justify-center'>
-            <TextTw className='' style={{ fontFamily: Popins[500], fontSize: 12 }}>Quản lý tài chính</TextTw>
-            <TextTw className='' style={{ fontFamily: Popins[600], fontSize: 20 }}>FOMO</TextTw>
+            <TextTw className='text-gray-300' style={{ fontFamily: Popins[500], fontSize: 12 }}>Quản lý tài chính</TextTw>
+            <TextTw className='text-gray-300' style={{ fontFamily: Popins[600], fontSize: 20 }}>FOMO</TextTw>
           </ViewTw>
           <TouchableOpacityTw className='w-14 h-14 grow-0'>
             <ImageTw className='w-10 h-10 my-auto mx-auto' style={{ tintColor: '#ffffff99' }} source={require('../assets/icon/System/bell-2.png')} />
@@ -120,7 +124,7 @@ const Home = () => {
           </ViewTw>
           <ViewTw className='w-full items-center  px-4' ><ViewTw className='w-full bg-white opacity-10' style={{ height: 1 }}></ViewTw></ViewTw>
           <ViewTw className='py-5 px-4'>
-            <TextTw style={{ fontFamily: Popins[400] }}>Thẻ chi tiêu</TextTw>
+            <TextTw className='text-gray-300' style={{ fontFamily: Popins[400] }}>Thẻ chi tiêu</TextTw>
           </ViewTw>
         </LinearGradientTw>
         {/* style={{tintColor:'#bc4749'}} */}
@@ -148,8 +152,8 @@ const Home = () => {
             <TextTw className='text-gray-300 my-1 text-lg ml-0.5'>{formattedSpending}{' '}₫</TextTw>
           </ViewTw>
         </ViewTw>
-        <ViewTw className='my-6'>
-          <TextTw className='text-xl font-semibold mb-2'>Danh sách hũ</TextTw>
+        <ViewTw className='my-4'>
+          <TextTw className='text-xl font-semibold mb-2 text-gray-300'>Danh sách hũ</TextTw>
           <ViewTw className='grow rounded-3xl bg-slate-800 py-2' >
             <TouchableOpacityTw className='flex-row items-center  px-4 py-2 grow-0' activeOpacity={1}>
               <ViewTw className='w-14 h-14 justify-center items-center rounded-2xl' style={{ backgroundColor: "#2a9d8f" }}>
@@ -157,12 +161,12 @@ const Home = () => {
               </ViewTw>
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between grow'>
-                  <TextTw className='text-lg font-semibold' >Thiết yếu</TextTw>
-                  <TextTw className='text-lg font-semibold' >{formatedEssentials + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold text-gray-300' >Thiết yếu</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatedEssentials + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between grow-0'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-500' >{Number(((essentials * 100) / essentialsOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((essentials * 100) / essentialsOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
@@ -179,17 +183,17 @@ const Home = () => {
               </ViewTw>
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between'>
-                  <TextTw className='text-lg font-semibold' >Giáo dục</TextTw>
-                  <TextTw className='text-lg font-semibold' >{formatedEducation + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold text-gray-300' >Giáo dục</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatedEducation + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-500' >{Number(((education * 100) / educationOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((education * 100) / educationOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={Number(((essentials * 100) / essentialsOld).toFixed(2)) / 100}
+                  progress={Number(((education * 100) / educationOld).toFixed(2)) / 100}
                   color='#3d405b'
                 />
               </ViewTw>
@@ -201,17 +205,17 @@ const Home = () => {
               </ViewTw>
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between'>
-                  <TextTw className='text-lg font-semibold' >Tiết kiệm</TextTw>
-                  <TextTw className='text-lg font-semibold' >{formatedSavings + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold text-gray-300' >Tiết kiệm</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatedSavings + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-500' >{Number(((savings * 100) / savingsOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((savings * 100) / savingsOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={Number(((essentials * 100) / essentialsOld).toFixed(2)) / 100}
+                  progress={Number(((savings * 100) / savingsOld).toFixed(2)) / 100}
                   color='#3d405b'
                 />
               </ViewTw>
@@ -223,17 +227,17 @@ const Home = () => {
               </ViewTw>
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between'>
-                  <TextTw className='text-lg font-semibold' >Huởng thụ</TextTw>
-                  <TextTw className='text-lg font-semibold' >{formatedEnjoyment + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold text-gray-300' >Huởng thụ</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatedEnjoyment + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-500' >{Number(((enjoyment * 100) / enjoymentOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((enjoyment * 100) / enjoymentOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={Number(((essentials * 100) / essentialsOld).toFixed(2)) / 100}
+                  progress={Number(((enjoyment * 100) / enjoymentOld).toFixed(2)) / 100}
                   color='#3d405b'
                 />
               </ViewTw>
@@ -245,17 +249,17 @@ const Home = () => {
               </ViewTw>
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between'>
-                  <TextTw className='text-lg font-semibold' >Đầu tư</TextTw>
-                  <TextTw className='text-lg font-semibold' >{formatedInvestment + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold text-gray-300' >Đầu tư</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatedInvestment + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-500' >{Number(((investment * 100) / investmentOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((investment * 100) / investmentOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={Number(((essentials * 100) / essentialsOld).toFixed(2)) / 100}
+                  progress={Number(((investment * 100) / investmentOld).toFixed(2)) / 100}
                   color='#3d405b'
                 />
               </ViewTw>
@@ -267,17 +271,17 @@ const Home = () => {
               </ViewTw>
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between'>
-                  <TextTw className='text-lg font-semibold' >Thiện tâm</TextTw>
-                  <TextTw className='text-lg font-semibold' >{formatedCharity + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold text-gray-300' >Thiện tâm</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatedCharity + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-500' >{Number(((charity * 100) / charityOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((charity * 100) / charityOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={Number(((essentials * 100) / essentialsOld).toFixed(2)) / 100}
+                  progress={Number(((charity * 100) / charityOld).toFixed(2)) / 100}
                   color='#3d405b'
                 />
               </ViewTw>
