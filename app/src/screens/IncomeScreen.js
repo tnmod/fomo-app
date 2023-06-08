@@ -41,8 +41,8 @@ const IncomeScreen = () => {
 
   const handleSaveData = () => {
     if (value) {
-      console.log('Add DB:', value);
-      navigation.goBack();
+      
+      navigation.popToTop();
     } else {
       ToastAndroid.show('Số tiền không hợp lệ!', ToastAndroid.SHORT);
     }

@@ -97,8 +97,8 @@ const HomeScreen = () => {
 
   return (
     <ScrollView overScrollMode='never' showsVerticalScrollIndicator={false}>
-      <ViewTw className='p-5 mb-6' style={{ backgroundColor: "#0f172a" }}>
-        <ViewTw className='flex-row items-center'>
+      <ViewTw className='py-5 mb-6' style={{ backgroundColor: "#0f172a" }}>
+        <ViewTw className='px-5 flex-row items-center'>
           <ImageTw className='w-12 h-12 rounded-full grow-0' source={require('../assets/images/potter.jpg')} />
           <ViewTw className='grow px-4 justify-center'>
             <TextTw className='text-gray-300' style={{ fontFamily: Popins[500], fontSize: 12 }}>Quản lý tài chính</TextTw>
@@ -108,34 +108,57 @@ const HomeScreen = () => {
             <ImageTw className='w-10 h-10 my-auto mx-auto' style={{ tintColor: '#ffffff99' }} source={require('../assets/icon/System/bell-2.png')} />
           </TouchableOpacityTw>
         </ViewTw>
-
-
         {/* card */}
-        <LinearGradientTw
-          colors={['#E5449E50', '#8F45E770', '#E5449E50']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0.5 }}
-          className='w-full rounded-2xl my-6 h-fit'
-        >
-          <ViewTw className='flex-row p-4'>
-            <ViewTw className='rounded-full w-20 h-20 justify-center items-center'>
-              <ViewTw className='opacity-10 w-full absolute bg-gray-200 h-full rounded-full'></ViewTw>
-              <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={progressValue} activeStrokeColor='#dee2e6' />
+
+        <ScrollviewTw className='w-fit h-fit' horizontal overScrollMode='never' showsHorizontalScrollIndicator={false}>
+          <LinearGradientTw
+            colors={['#E5449E50', '#8F45E770', '#E5449E50']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0.5 }}
+            className='w-80 m-5 rounded-2xl my-6 h-44 '
+          >
+            <ViewTw className='flex-row p-4'>
+              <ViewTw className='rounded-full w-20 h-20 justify-center items-center'>
+                <ViewTw className='opacity-10 w-full absolute bg-gray-200 h-full rounded-full'></ViewTw>
+                <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={progressValue} activeStrokeColor='#dee2e6' />
+              </ViewTw>
+              <ViewTw className='flex-1 h-fit justify-center px-4'>
+                <TextTw className='text-base text-gray-300'>Số dư khả dụng</TextTw>
+                <TextTw className='text-2xl text-gray-300' style={{ fontFamily: Popins[600] }} >{formattedTotal}{' '}₫</TextTw>
+              </ViewTw>
             </ViewTw>
-            <ViewTw className='flex-1 h-fit justify-center px-4'>
-              <TextTw className='text-base text-gray-300'>Số dư khả dụng</TextTw>
-              <TextTw className='text-2xl text-gray-300' style={{ fontFamily: Popins[600] }} >{formattedTotal}{' '}₫</TextTw>
+            <ViewTw className='w-full items-center  px-4' ><ViewTw className='w-full bg-white opacity-10' style={{ height: 1 }}></ViewTw></ViewTw>
+            <ViewTw className='py-5 px-4'>
+              <TextTw className='text-gray-300' style={{ fontFamily: Popins[400] }}>Thẻ chi tiêu</TextTw>
             </ViewTw>
-          </ViewTw>
-          <ViewTw className='w-full items-center  px-4' ><ViewTw className='w-full bg-white opacity-10' style={{ height: 1 }}></ViewTw></ViewTw>
-          <ViewTw className='py-5 px-4'>
-            <TextTw className='text-gray-300' style={{ fontFamily: Popins[400] }}>Thẻ chi tiêu</TextTw>
-          </ViewTw>
-        </LinearGradientTw>
+          </LinearGradientTw>
+          <LinearGradientTw
+            colors={['#E5449E50', '#8F45E770', '#E5449E50']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0.5 }}
+            className='w-80 mr-5 rounded-2xl my-6 h-44 '
+          >
+            <ViewTw className='flex-row p-4'>
+              <ViewTw className='rounded-full w-20 h-20 justify-center items-center'>
+                <ViewTw className='opacity-10 w-full absolute bg-gray-200 h-full rounded-full'></ViewTw>
+                <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={progressValue} activeStrokeColor='#dee2e6' />
+              </ViewTw>
+              <ViewTw className='flex-1 h-fit justify-center px-4'>
+                <TextTw className='text-base text-gray-300'>Số dư khả dụng</TextTw>
+                <TextTw className='text-2xl text-gray-300' style={{ fontFamily: Popins[600] }} >{formattedTotal}{' '}₫</TextTw>
+              </ViewTw>
+            </ViewTw>
+            <ViewTw className='w-full items-center  px-4' ><ViewTw className='w-full bg-white opacity-10' style={{ height: 1 }}></ViewTw></ViewTw>
+            <ViewTw className='py-5 px-4'>
+              <TextTw className='text-gray-300' style={{ fontFamily: Popins[400] }}>Thẻ chi tiêu</TextTw>
+            </ViewTw>
+          </LinearGradientTw>
+        </ScrollviewTw>
+
         {/* style={{tintColor:'#bc4749'}} */}
         {/* dee2e6 */}
         {/* ₫ */}
-        <ViewTw className='flex-row'>
+        <ViewTw className='flex-row px-5'>
           <ViewTw className='grow bg-gray-800 px-4 py-2 mr-1.5 rounded-xl'>
             <ViewTw className='flex-row items-center'>
               <ImageTw className='w-6 h-6 grow-0' style={{ tintColor: '#008000' }} source={require('../assets/icon/Finance/credit-card.png')} />
@@ -157,7 +180,7 @@ const HomeScreen = () => {
             <TextTw className='text-gray-300 my-1 text-lg ml-0.5'>{formattedSpending}{' '}₫</TextTw>
           </ViewTw>
         </ViewTw>
-        <ViewTw className='my-4'>
+        <ViewTw className='my-4 px-5'>
           <TextTw className='text-xl font-semibold mb-2 text-gray-300'>Danh sách hũ</TextTw>
           <ViewTw className='grow rounded-3xl bg-slate-800 py-2' >
             <TouchableOpacityTw className='flex-row items-center  px-4 py-2 grow-0' activeOpacity={1}>

@@ -1,6 +1,6 @@
-import { Alert, Image, ScrollView, StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, ScrollView, StyleSheet, Text, TextInput, ToastAndroid, BackHandler, TouchableOpacity, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { styled } from 'nativewind';
 import { Popins } from '../utils/popins';
 import { FormatNumber } from '../utils/FormatNumber';
@@ -40,13 +40,22 @@ const ExpenseScreen = () => {
     const handleSaveData = () => {
         if (value) {
             console.log('Remove DB:', value);
-            navigation.goBack();
+            navigation.popToTop();
         } else {
             ToastAndroid.show('Số tiền không hợp lệ!', ToastAndroid.SHORT);
         }
 
     };
+    const backActionHandler = () => {
+       
+    };
+    useEffect(() => {
 
+        BackHandler.addEventListener("hardwareBackPress", backActionHandler);
+
+        return () =>
+            BackHandler.removeEventListener("hardwareBackPress", backActionHandler);
+    }, []);
 
     return (
         <ViewTw style={{ flex: 1, backgroundColor: '#0f172a' }}>
