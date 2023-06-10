@@ -38,16 +38,16 @@ const HomeScreen = () => {
   const [totalMoney, setTotalMoney] = useState(0);
 
 
-  const [Income, setIncome] = useState(10000000);
+  const [Income, setIncome] = useState(0);
   const [Expence, setExpense] = useState(0);
 
   //6Jar
   const [essentials, setEssentials] = useState(5420000);
-  const [education, setEducation] = useState(99000);
-  const [savings, setSavings] = useState(755000);
-  const [enjoyment, setEnjoyment] = useState(100000);
-  const [investment, setInvestment] = useState(523232);
-  const [charity, setCharity] = useState(320000);
+  const [education, setEducation] = useState(0);
+  const [savings, setSavings] = useState(0);
+  const [enjoyment, setEnjoyment] = useState(0);
+  const [investment, setInvestment] = useState(0);
+  const [charity, setCharity] = useState(0);
 
   //6Jar old
   const [essentialsOld, setEssentialsOld] = useState(5500000);
@@ -88,18 +88,23 @@ const HomeScreen = () => {
   const formatedCharity = formatNumber(charity);
 
   useEffect(() => {
-    setTotalMoney(essentialsOld + educationOld + enjoymentOld + savingsOld + charityOld + investmentOld);
+    //setTotalMoney(essentialsOld + educationOld + enjoymentOld + savingsOld + charityOld + investmentOld);
   }, [])
 
-  const moveScreen = (params) => {
-    navigation.navigate("TransactionScreen");
+  const moveScreen = (params, id) => {
+    if (params) {
+      navigation.navigate('IncomeScreen');
+    } else {
+      console.log(id);
+      navigation.navigate('ExpenseScreen', { id: id });
+    }
   }
 
   return (
-    <ScrollView overScrollMode='never' showsVerticalScrollIndicator={false}>
-      <ViewTw className='py-5 mb-6' style={{ backgroundColor: "#0f172a" }}>
+    <ScrollView className='flex-1' overScrollMode='never' showsVerticalScrollIndicator={false}>
+      <ViewTw className='py-5' style={{ backgroundColor: "#0f172a" }}>
         <ViewTw className='px-5 flex-row items-center'>
-          <ImageTw className='w-12 h-12 rounded-full grow-0' source={require('../assets/images/potter.jpg')} />
+          <ImageTw className='w-12 h-12 rounded-full grow-0 ' source={require('../assets/logo/logo.jpeg')} />
           <ViewTw className='grow px-4 justify-center'>
             <TextTw className='text-gray-300' style={{ fontFamily: Popins[500], fontSize: 12 }}>Quản lý tài chính</TextTw>
             <TextTw className='text-gray-300' style={{ fontFamily: Popins[600], fontSize: 20 }}>FOMO</TextTw>
@@ -144,7 +149,7 @@ const HomeScreen = () => {
                 <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={progressValue} activeStrokeColor='#dee2e6' />
               </ViewTw>
               <ViewTw className='flex-1 h-fit justify-center px-4'>
-                <TextTw className='text-base text-gray-300'>Số dư khả dụng</TextTw>
+                <TextTw className='text-base text-gray-300'>Tổng tài sản</TextTw>
                 <TextTw className='text-2xl text-gray-300' style={{ fontFamily: Popins[600] }} >{formattedTotal}{' '}₫</TextTw>
               </ViewTw>
             </ViewTw>
@@ -159,23 +164,23 @@ const HomeScreen = () => {
         {/* dee2e6 */}
         {/* ₫ */}
         <ViewTw className='flex-row px-5'>
-          <ViewTw className='grow bg-gray-800 px-4 py-2 mr-1.5 rounded-xl'>
-            <ViewTw className='flex-row items-center'>
+          <TouchableOpacityTw onPress={() => moveScreen(1, 0)} className='grow bg-gray-800 justify-center px-4 py-2 mr-1.5 rounded-xl' style={{ flex: 1 / 2 }}>
+            <ViewTw className='flex-row mb-1  items-center'>
               <ImageTw className='w-6 h-6 grow-0' style={{ tintColor: '#008000' }} source={require('../assets/icon/Finance/credit-card.png')} />
               <TextTw className='text-gray-400 grow text-base ml-2'>Thu nhập</TextTw>
-              <TouchableOpacityTw onPress={() => moveScreen(1)} className='w-6 h-6 grow-0'>
+              <ViewTw className='w-6 h-6 grow-0'>
                 <ImageTw className='w-full h-full' style={{ tintColor: '#dee2e6' }} source={require('../assets/icon/System/plus.png')} />
-              </TouchableOpacityTw>
+              </ViewTw>
             </ViewTw>
             <TextTw className='text-gray-300 my-1 text-lg ml-0.5'>{formattedIncome}{' '}₫</TextTw>
-          </ViewTw>
-          <ViewTw className='grow bg-gray-800 px-4 py-2 ml-1.5 rounded-xl'>
-            <ViewTw className='flex-row  items-center'>
+          </TouchableOpacityTw>
+          <ViewTw onPress={() => moveScreen(0)} className='grow bg-gray-800 justify-center px-4 py-2 ml-1.5 rounded-xl' style={{ flex: 1 / 2 }}>
+            <ViewTw className='flex-row mb-1 items-center'>
               <ImageTw className='w-6 h-6 grow-0' style={{ tintColor: '#bc4749' }} source={require('../assets/icon/Finance/credit-card.png')} />
               <TextTw className='text-gray-400 grow text-base ml-2'>Chi tiêu</TextTw>
-              <TouchableOpacityTw className='w-6 h-6 grow-0' >
-                <ImageTw className='w-full h-full' style={{ tintColor: '#dee2e6' }} source={require('../assets/icon/System/minus.png')} />
-              </TouchableOpacityTw>
+              <ViewTw className='w-6  h-6 grow-0' >
+                <ImageTw className='w-full h-full' style={{ tintColor: '#dee2e6', opacity: 0 }} source={require('../assets/icon/System/minus.png')} />
+              </ViewTw>
             </ViewTw>
             <TextTw className='text-gray-300 my-1 text-lg ml-0.5'>{formattedSpending}{' '}₫</TextTw>
           </ViewTw>
@@ -183,7 +188,7 @@ const HomeScreen = () => {
         <ViewTw className='my-4 px-5'>
           <TextTw className='text-xl font-semibold mb-2 text-gray-300'>Danh sách hũ</TextTw>
           <ViewTw className='grow rounded-3xl bg-slate-800 py-2' >
-            <TouchableOpacityTw className='flex-row items-center  px-4 py-2 grow-0' activeOpacity={1}>
+            <TouchableOpacityTw onPress={() => { moveScreen(0, 1) }} className='flex-row items-center  px-4 py-2 grow-0' activeOpacity={1}>
               <ViewTw className='w-14 h-14 justify-center items-center rounded-2xl' style={{ backgroundColor: "#2a9d8f" }}>
                 <ImageTw className='w-7 h-7' style={{ tintColor: '#dee2e6' }} source={require('../assets/icon/Business/position.png')} />
               </ViewTw>
@@ -205,7 +210,7 @@ const HomeScreen = () => {
               </ViewTw>
               <ImageTw className='w-7 h-7 grow-0' style={{ tintColor: '#dee2e6' }} source={require('../assets/icon/Arrows/arrow-chevron-right.png')} />
             </TouchableOpacityTw>
-            <TouchableOpacityTw className='flex-row items-center  px-4 py-2 grow-0' activeOpacity={1}>
+            <TouchableOpacityTw onPress={() => { moveScreen(0, 2) }} className='flex-row items-center  px-4 py-2 grow-0' activeOpacity={1}>
               <ViewTw className='w-14 h-14 justify-center items-center rounded-2xl' style={{ backgroundColor: "#e76f51" }}>
                 <ImageTw className='w-7 h-7' style={{ tintColor: '#dee2e6' }} source={require('../assets/icon/Business/position.png')} />
               </ViewTw>
@@ -227,7 +232,7 @@ const HomeScreen = () => {
               </ViewTw>
               <ImageTw className='w-7 h-7 grow-0' style={{ tintColor: '#dee2e6' }} source={require('../assets/icon/Arrows/arrow-chevron-right.png')} />
             </TouchableOpacityTw>
-            <TouchableOpacityTw className='flex-row items-center  px-4 py-2 grow-0' activeOpacity={1}>
+            <TouchableOpacityTw onPress={() => { moveScreen(0, 3) }} className='flex-row items-center  px-4 py-2 grow-0' activeOpacity={1}>
               <ViewTw className='w-14 h-14 justify-center items-center rounded-2xl' style={{ backgroundColor: "#708d81" }}>
                 <ImageTw className='w-7 h-7' style={{ tintColor: '#dee2e6' }} source={require('../assets/icon/Business/position.png')} />
               </ViewTw>
@@ -249,7 +254,7 @@ const HomeScreen = () => {
               </ViewTw>
               <ImageTw className='w-7 h-7 grow-0' style={{ tintColor: '#dee2e6' }} source={require('../assets/icon/Arrows/arrow-chevron-right.png')} />
             </TouchableOpacityTw>
-            <TouchableOpacityTw className='flex-row items-center  px-4 py-2 grow-0' activeOpacity={1}>
+            <TouchableOpacityTw onPress={() => { moveScreen(0, 4) }} className='flex-row items-center  px-4 py-2 grow-0' activeOpacity={1}>
               <ViewTw className='w-14 h-14 justify-center items-center rounded-2xl' style={{ backgroundColor: "#a98467" }}>
                 <ImageTw className='w-7 h-7' style={{ tintColor: '#dee2e6' }} source={require('../assets/icon/Business/position.png')} />
               </ViewTw>
@@ -271,7 +276,7 @@ const HomeScreen = () => {
               </ViewTw>
               <ImageTw className='w-7 h-7 grow-0' style={{ tintColor: '#dee2e6' }} source={require('../assets/icon/Arrows/arrow-chevron-right.png')} />
             </TouchableOpacityTw>
-            <TouchableOpacityTw className='flex-row items-center  px-4 py-2 grow-0' activeOpacity={1}>
+            <TouchableOpacityTw onPress={() => { moveScreen(0, 5) }} className='flex-row items-center  px-4 py-2 grow-0' activeOpacity={1}>
               <ViewTw className='w-14 h-14 justify-center items-center rounded-2xl' style={{ backgroundColor: "#fb6f92" }}>
                 <ImageTw className='w-7 h-7' style={{ tintColor: '#dee2e6' }} source={require('../assets/icon/Business/position.png')} />
               </ViewTw>
@@ -293,7 +298,7 @@ const HomeScreen = () => {
               </ViewTw>
               <ImageTw className='w-7 h-7 grow-0' style={{ tintColor: '#dee2e6' }} source={require('../assets/icon/Arrows/arrow-chevron-right.png')} />
             </TouchableOpacityTw>
-            <TouchableOpacityTw className='flex-row items-center  px-4 py-2 grow-0' activeOpacity={1}>
+            <TouchableOpacityTw onPress={() => { moveScreen(0, 6) }} className='flex-row items-center  px-4 py-2 grow-0' activeOpacity={1}>
               <ViewTw className='w-14 h-14 justify-center items-center rounded-2xl' style={{ backgroundColor: "#b8bedd" }}>
                 <ImageTw className='w-7 h-7' style={{ tintColor: '#dee2e6' }} source={require('../assets/icon/Business/position.png')} />
               </ViewTw>

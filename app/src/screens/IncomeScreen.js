@@ -41,7 +41,7 @@ const IncomeScreen = () => {
 
   const handleSaveData = () => {
     if (value) {
-      
+      console.log(save);
       navigation.popToTop();
     } else {
       ToastAndroid.show('Số tiền không hợp lệ!', ToastAndroid.SHORT);
@@ -66,7 +66,7 @@ const IncomeScreen = () => {
           />
           <TextTw className='grow-0 text-gray-200 text-xs bg-pink-500 px-4 py-0.5 rounded-full'>đ</TextTw>
         </ViewTw>
-        <TouchableOpacityTw className='bg-green-800 py-4 mt-28 w-full rounded-full justify-center items-center' onPress={() => handleSaveData()}>
+        <TouchableOpacityTw  className='bg-green-800 py-4 mt-28 w-full rounded-full justify-center items-center' onPress={() => handleSaveData()}>
           <TextTw className=' text-gray-300  text-base' style={{ fontFamily: Popins[600] }}>Lưu</TextTw>
         </TouchableOpacityTw>
       </ViewTw>

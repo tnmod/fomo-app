@@ -15,9 +15,9 @@ const TextInputTw = styled(TextInput);
 
 
 
-const ExpenseScreen = () => {
-    const navigation = useNavigation();
-
+const ExpenseScreen = ({ route, navigation }) => {
+    //ID
+    const { id } = route.params;
 
     const [value, setValue] = useState(0);
     const [formatValue, setFormatValue] = useState('');
@@ -46,16 +46,7 @@ const ExpenseScreen = () => {
         }
 
     };
-    const backActionHandler = () => {
-       
-    };
-    useEffect(() => {
 
-        BackHandler.addEventListener("hardwareBackPress", backActionHandler);
-
-        return () =>
-            BackHandler.removeEventListener("hardwareBackPress", backActionHandler);
-    }, []);
 
     return (
         <ViewTw style={{ flex: 1, backgroundColor: '#0f172a' }}>

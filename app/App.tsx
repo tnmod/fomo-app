@@ -45,7 +45,7 @@ function App(): JSX.Element {
   
   return (
     <NavigationContainer>
-      <Sview className='container h-screen w-screen bg-slate-900'>
+      <Sview className='h-screen w-screen bg-slate-900'>
         <StatusBar
           //barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           barStyle={isDarkMode ? 'light-content' : 'light-content'}

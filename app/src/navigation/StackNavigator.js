@@ -90,7 +90,8 @@ const TopTabNavigator = (props) => {
                     title: 'Thu nhập'
                 }} />
                 <Tab.Screen name="Expense" component={ExpenseScreen} options={{
-                    title: 'Chi tiêu'
+                    title: 'Chi tiêu',
+
                 }} />
             </Tab.Navigator>
         </ViewTw>
@@ -99,15 +100,14 @@ const TopTabNavigator = (props) => {
 
 const StackNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName='HomeScreen' >
+        <Stack.Navigator initialRouteName='HomeScreen'  >
             <Stack.Screen name="HomeScreen" component={HomeScreen} options={{
                 headerShown: false,
             }} />
-            <Stack.Screen name="TransactionScreen" component={TopTabNavigator} options={{
+            <Stack.Screen name="IncomeScreen" component={IncomeScreen} options={{
                 header: (({ navigation }) => {
-
                     const moveScreen = (params) => {
-                        navigation.gpopToTop();
+                        navigation.goBack();
                     }
 
                     return (
@@ -122,6 +122,32 @@ const StackNavigator = () => {
                         </ViewTw>
                     )
                 }),
+
+                transitionSpec: {
+                    open: { animation: 'timing', config: { duration: 300 } },
+                    close: { animation: 'timing', config: { duration: 300 } },
+                },
+                cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+            }} />
+            <Stack.Screen name="ExpenseScreen" component={ExpenseScreen} options={{
+                header: (({ navigation }) => {
+                    const moveScreen = (params) => {
+                        navigation.goBack();
+                    }
+
+                    return (
+                        <ViewTw className='h-14 flex-row items-center border-b border-blue-950' style={{ backgroundColor: '#0f172a' }}>
+                            <TouchableOpacityTw className='grow-0 p-4' onPress={() => moveScreen(0)}>
+                                <TextTw className=' text-gray-200  text-base' style={{ fontFamily: Popins[600] }}>Hủy</TextTw>
+                            </TouchableOpacityTw>
+                            <TextTw className='grow text-center text-gray-200 text-base' style={{ fontFamily: Popins[600] }}>Thêm giao dịch</TextTw>
+                            <TouchableOpacityTw className='grow-0 p-4' onPress={() => moveScreen(0)}>
+                                <TextTw className=' text-gray-900  text-base' style={{ fontFamily: Popins[600] }}>Hủy</TextTw>
+                            </TouchableOpacityTw>
+                        </ViewTw>
+                    )
+                }),
+
                 transitionSpec: {
                     open: { animation: 'timing', config: { duration: 300 } },
                     close: { animation: 'timing', config: { duration: 300 } },
