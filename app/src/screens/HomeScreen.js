@@ -6,6 +6,8 @@ import { Popins } from '../utils/popins';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { ProgressBar } from '@react-native-community/progress-bar-android';
 import { useNavigation } from '@react-navigation/native';
+import JARMODULE from '../funtion/Test';
+import { useIsFocused } from '@react-navigation/native';
 
 
 const TextTw = styled(Text);
@@ -87,9 +89,97 @@ const HomeScreen = () => {
   const formatedInvestment = formatNumber(investment);
   const formatedCharity = formatNumber(charity);
 
+  const [jar, setjar] = useState([
+    {
+      id: 1,
+      amount: 0,
+      amountOld: 0,
+      percent: 55
+    },
+    {
+      id: 2,
+      amount: 0,
+      amountOld: 0,
+      percent: 10
+    },
+    {
+      id: 3,
+      amount: 0,
+      amountOld: 0,
+      percent: 10
+    },
+    {
+      id: 4,
+      amount: 0,
+      amountOld: 0,
+      percent: 10
+    },
+    {
+      id: 5,
+      amount: 0,
+      amountOld: 0,
+      percent: 10
+    },
+    {
+      id: 6,
+      amount: 0,
+      amountOld: 0,
+      percent: 5
+    },
+  ]);
+  const [revenue, setrevenue] = useState([
+    {
+      id: 1,
+      amount: 0
+    },
+    {
+      id: 2,
+      amount: 0
+    }
+  ]);
+
+  const isFocused = useIsFocused();
+
+  const createTable = async () => {
+    await JARMODULE.createTable();
+  };
+
+  const createRows = async () => {
+    await JARMODULE.createRows();
+  };
+
+  const createTable2 = async () => {
+    await JARMODULE.createTable2();
+  };
+
+  const createRows2 = async () => {
+    await JARMODULE.createRows2();
+  };
+
+  const fetchJars = async () => {
+    const jarList = await JARMODULE.getJars();
+    setjar(jarList);
+
+  };
+
+  const fetchRevenue = async () => {
+    const jarList = await JARMODULE.getRevenue();
+    setrevenue(jarList);
+    
+  };
+
   useEffect(() => {
     //setTotalMoney(essentialsOld + educationOld + enjoymentOld + savingsOld + charityOld + investmentOld);
-  }, [])
+
+    createTable();
+    createRows();
+    fetchJars();
+
+    createTable2();
+    createRows2();
+    fetchRevenue();
+    
+  }, [isFocused])
 
   const moveScreen = (params, id) => {
     if (params) {
@@ -125,11 +215,11 @@ const HomeScreen = () => {
             <ViewTw className='flex-row p-4'>
               <ViewTw className='rounded-full w-20 h-20 justify-center items-center'>
                 <ViewTw className='opacity-10 w-full absolute bg-gray-200 h-full rounded-full'></ViewTw>
-                <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={progressValue} activeStrokeColor='#dee2e6' />
+                <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={(((jar[0].amount + jar[1].amount + jar[2].amount + jar[3].amount + jar[4].amount + jar[5].amount)/(jar[0].amountOld + jar[1].amountOld + jar[2].amountOld + jar[3].amountOld + jar[4].amountOld + jar[5].amountOld))*100)} activeStrokeColor='#dee2e6' />
               </ViewTw>
               <ViewTw className='flex-1 h-fit justify-center px-4'>
                 <TextTw className='text-base text-gray-300'>Số dư khả dụng</TextTw>
-                <TextTw className='text-2xl text-gray-300' style={{ fontFamily: Popins[600] }} >{formattedTotal}{' '}₫</TextTw>
+                <TextTw className='text-2xl text-gray-300' style={{ fontFamily: Popins[600] }} >{formatNumber(jar[0].amount + jar[1].amount + jar[2].amount + jar[3].amount + jar[4].amount + jar[5].amount)}{' '}₫</TextTw>
               </ViewTw>
             </ViewTw>
             <ViewTw className='w-full items-center  px-4' ><ViewTw className='w-full bg-white opacity-10' style={{ height: 1 }}></ViewTw></ViewTw>
@@ -146,11 +236,11 @@ const HomeScreen = () => {
             <ViewTw className='flex-row p-4'>
               <ViewTw className='rounded-full w-20 h-20 justify-center items-center'>
                 <ViewTw className='opacity-10 w-full absolute bg-gray-200 h-full rounded-full'></ViewTw>
-                <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={progressValue} activeStrokeColor='#dee2e6' />
+                <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={(((jar[0].amountOld + jar[1].amountOld + jar[2].amountOld + jar[3].amountOld + jar[4].amountOld + jar[5].amountOld)/(jar[0].amountOld + jar[1].amountOld + jar[2].amountOld + jar[3].amountOld + jar[4].amountOld + jar[5].amountOld))*100)} activeStrokeColor='#dee2e6' />
               </ViewTw>
               <ViewTw className='flex-1 h-fit justify-center px-4'>
                 <TextTw className='text-base text-gray-300'>Tổng tài sản</TextTw>
-                <TextTw className='text-2xl text-gray-300' style={{ fontFamily: Popins[600] }} >{formattedTotal}{' '}₫</TextTw>
+                <TextTw className='text-2xl text-gray-300' style={{ fontFamily: Popins[600] }} >{formatNumber(jar[0].amountOld + jar[1].amountOld + jar[2].amountOld + jar[3].amountOld + jar[4].amountOld + jar[5].amountOld)}{' '}₫</TextTw>
               </ViewTw>
             </ViewTw>
             <ViewTw className='w-full items-center  px-4' ><ViewTw className='w-full bg-white opacity-10' style={{ height: 1 }}></ViewTw></ViewTw>
@@ -172,7 +262,7 @@ const HomeScreen = () => {
                 <ImageTw className='w-full h-full' style={{ tintColor: '#dee2e6' }} source={require('../assets/icon/System/plus.png')} />
               </ViewTw>
             </ViewTw>
-            <TextTw className='text-gray-300 my-1 text-lg ml-0.5'>{formattedIncome}{' '}₫</TextTw>
+            <TextTw className='text-gray-300 my-1 text-lg ml-0.5'>{formatNumber(revenue[0].amount)}{' '}₫</TextTw>
           </TouchableOpacityTw>
           <ViewTw onPress={() => moveScreen(0)} className='grow bg-gray-800 justify-center px-4 py-2 ml-1.5 rounded-xl' style={{ flex: 1 / 2 }}>
             <ViewTw className='flex-row mb-1 items-center'>
@@ -182,7 +272,7 @@ const HomeScreen = () => {
                 <ImageTw className='w-full h-full' style={{ tintColor: '#dee2e6', opacity: 0 }} source={require('../assets/icon/System/minus.png')} />
               </ViewTw>
             </ViewTw>
-            <TextTw className='text-gray-300 my-1 text-lg ml-0.5'>{formattedSpending}{' '}₫</TextTw>
+            <TextTw className='text-gray-300 my-1 text-lg ml-0.5'>{formatNumber(revenue[1].amount)}{' '}₫</TextTw>
           </ViewTw>
         </ViewTw>
         <ViewTw className='my-4 px-5'>
@@ -195,16 +285,16 @@ const HomeScreen = () => {
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between grow'>
                   <TextTw className='text-lg font-semibold text-gray-300' >Thiết yếu</TextTw>
-                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatedEssentials + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(jar[0].amount) + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between grow-0'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((essentials * 100) / essentialsOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((jar[0].amount * 100) / jar[0].amountOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={Number(((essentials * 100) / essentialsOld).toFixed(2)) / 100}
+                  progress={Number(((jar[0].amount * 100) / jar[0].amountOld).toFixed(2)) / 100}
                   color='#3d405b'
                 />
               </ViewTw>
@@ -217,16 +307,16 @@ const HomeScreen = () => {
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-lg font-semibold text-gray-300' >Giáo dục</TextTw>
-                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatedEducation + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(jar[1].amount) + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((education * 100) / educationOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((jar[1].amount * 100) / jar[1].amountOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={Number(((education * 100) / educationOld).toFixed(2)) / 100}
+                  progress={Number(((jar[1].amount * 100) / jar[1].amountOld).toFixed(2)) / 100}
                   color='#3d405b'
                 />
               </ViewTw>
@@ -239,16 +329,16 @@ const HomeScreen = () => {
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-lg font-semibold text-gray-300' >Tiết kiệm</TextTw>
-                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatedSavings + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(jar[2].amount) + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((savings * 100) / savingsOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((jar[2].amount * 100) / jar[2].amountOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={Number(((savings * 100) / savingsOld).toFixed(2)) / 100}
+                  progress={Number(((jar[2].amount * 100) / jar[2].amountOld).toFixed(2)) / 100}
                   color='#3d405b'
                 />
               </ViewTw>
@@ -261,16 +351,16 @@ const HomeScreen = () => {
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-lg font-semibold text-gray-300' >Huởng thụ</TextTw>
-                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatedEnjoyment + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(jar[3].amount) + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((enjoyment * 100) / enjoymentOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((jar[3].amount * 100) / jar[3].amountOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={Number(((enjoyment * 100) / enjoymentOld).toFixed(2)) / 100}
+                  progress={Number(((jar[3].amount * 100) / jar[3].amountOld).toFixed(2)) / 100}
                   color='#3d405b'
                 />
               </ViewTw>
@@ -283,16 +373,16 @@ const HomeScreen = () => {
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-lg font-semibold text-gray-300' >Đầu tư</TextTw>
-                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatedInvestment + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(jar[4].amount) + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((investment * 100) / investmentOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((jar[4].amount * 100) / jar[4].amountOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={Number(((investment * 100) / investmentOld).toFixed(2)) / 100}
+                  progress={Number(((jar[4].amount * 100) / jar[4].amountOld).toFixed(2)) / 100}
                   color='#3d405b'
                 />
               </ViewTw>
@@ -305,16 +395,16 @@ const HomeScreen = () => {
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-lg font-semibold text-gray-300' >Thiện tâm</TextTw>
-                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatedCharity + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(jar[5].amount) + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((charity * 100) / charityOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((jar[5].amount * 100) / jar[5].amountOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={Number(((charity * 100) / charityOld).toFixed(2)) / 100}
+                  progress={Number(((jar[5].amount * 100) / jar[5].amountOld).toFixed(2)) / 100}
                   color='#3d405b'
                 />
               </ViewTw>

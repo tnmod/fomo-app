@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { styled } from 'nativewind';
 import { Popins } from '../utils/popins';
 import { FormatNumber } from '../utils/FormatNumber';
+import JARMODULE from '../funtion/Test';
 
 const TextTw = styled(Text);
 const ViewTw = styled(View);
@@ -41,7 +42,8 @@ const IncomeScreen = () => {
 
   const handleSaveData = () => {
     if (value) {
-      console.log(save);
+      updateRevenue(value, 1);
+      addAll(value);
       navigation.popToTop();
     } else {
       ToastAndroid.show('Số tiền không hợp lệ!', ToastAndroid.SHORT);
@@ -49,6 +51,13 @@ const IncomeScreen = () => {
 
   };
 
+  const updateRevenue = async (value, id) => {
+    const jarList = await JARMODULE.updateRevenue(value, id);
+  }
+
+  const addAll = async (value) => {
+    await JARMODULE.addAll(value);
+}
 
   return (
     <ViewTw style={{ flex: 1, backgroundColor: '#0f172a' }}>
@@ -59,9 +68,8 @@ const IncomeScreen = () => {
             keyboardType='numeric'
             onChangeText={handleValueChange}
             onSubmitEditing={handleSaveData}
-            value={formatValue}
+            defaultValue={formatValue}
             className='grow text-green-500 text-3xl text-ellipsis'
-            defaultValue='0'
             numberOfLines={1}
           />
           <TextTw className='grow-0 text-gray-200 text-xs bg-pink-500 px-4 py-0.5 rounded-full'>đ</TextTw>

@@ -4,6 +4,7 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { styled } from 'nativewind';
 import { Popins } from '../utils/popins';
 import { FormatNumber } from '../utils/FormatNumber';
+import JARMODULE from '../funtion/Test';
 
 const TextTw = styled(Text);
 const ViewTw = styled(View);
@@ -39,14 +40,23 @@ const ExpenseScreen = ({ route, navigation }) => {
 
     const handleSaveData = () => {
         if (value) {
-            console.log('Remove DB:', value);
+            decreaseJarwithID(value, id);
+            updateRevenue(value, 2);
             navigation.popToTop();
         } else {
+            console.log('Remove DB:', id);
             ToastAndroid.show('Số tiền không hợp lệ!', ToastAndroid.SHORT);
         }
 
     };
 
+    const decreaseJarwithID = async (value, id) =>{
+        await JARMODULE.updateJarwithId(value, id);
+    }
+
+    const updateRevenue = async (value, id) => {
+        const jarList = await JARMODULE.updateRevenue(value, id);
+      }
 
     return (
         <ViewTw style={{ flex: 1, backgroundColor: '#0f172a' }}>
@@ -57,9 +67,8 @@ const ExpenseScreen = ({ route, navigation }) => {
                         keyboardType='numeric'
                         onChangeText={handleValueChange}
                         onSubmitEditing={handleSaveData}
-                        value={formatValue}
+                        defaultValue={formatValue}
                         className='grow text-green-500 text-3xl text-ellipsis'
-                        defaultValue='0'
                         numberOfLines={1}
                     />
                     <TextTw className='grow-0 text-gray-200 text-xs bg-pink-500 px-4 py-0.5 rounded-full'>đ</TextTw>
