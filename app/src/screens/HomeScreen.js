@@ -261,6 +261,8 @@ const HomeScreen = () => {
       setTotalMoneyOld(jar[0].amountOld + jar[1].amountOld + jar[2].amountOld + jar[3].amountOld + jar[4].amountOld + jar[5].amountOld);
       setTotalMoney(jar[0].amount + jar[1].amount + jar[2].amount + jar[3].amount + jar[4].amount + jar[5].amount);
       setLoading(false);
+    }else{
+      setLoading(false);
     }
   }, [education, enjoyment, essentials, savings, investment, charity])
 
