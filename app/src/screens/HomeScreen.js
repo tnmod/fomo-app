@@ -261,7 +261,9 @@ const HomeScreen = () => {
       setTotalMoneyOld(jar[0].amountOld + jar[1].amountOld + jar[2].amountOld + jar[3].amountOld + jar[4].amountOld + jar[5].amountOld);
       setTotalMoney(jar[0].amount + jar[1].amount + jar[2].amount + jar[3].amount + jar[4].amount + jar[5].amount);
       setLoading(false);
-    }else{
+    } else {
+      setTotalMoneyOld(0);
+      setTotalMoney(0);
       setLoading(false);
     }
   }, [education, enjoyment, essentials, savings, investment, charity])
@@ -295,7 +297,7 @@ const HomeScreen = () => {
             <ViewTw className='flex-row p-4'>
               <ViewTw className='rounded-full w-20 h-20 justify-center items-center'>
                 <ViewTw className='opacity-10 w-full absolute bg-gray-200 h-full rounded-full'></ViewTw>
-                <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={((totalMoney / totalMoneyOld) * 100)} activeStrokeColor='#dee2e6' />
+                <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={totalMoneyOld ? ((totalMoney / totalMoneyOld) * 100) : 0} activeStrokeColor='#dee2e6' />
               </ViewTw>
               <ViewTw className='flex-1 h-fit justify-center px-4'>
                 <TextTw className='text-base text-gray-300'>Số dư khả dụng</TextTw>
