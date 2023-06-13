@@ -165,6 +165,7 @@ const HomeScreen = () => {
   const fetchRevenue = async () => {
     const jarList = await JARMODULE.getRevenue();
     setrevenue(jarList);
+    setP();
     
   };
 
@@ -178,6 +179,7 @@ const HomeScreen = () => {
     createTable2();
     createRows2();
     fetchRevenue();
+
     
   }, [isFocused])
 
@@ -187,6 +189,88 @@ const HomeScreen = () => {
     } else {
       console.log(id);
       navigation.navigate('ExpenseScreen', { id: id });
+    }
+  }
+
+  const [percent, setpercent] = useState(0);
+  const [percent0, setpercent0] = useState(0);
+  const [percent1, setpercent1] = useState(0);
+  const [percent2, setpercent2] = useState(0);
+  const [percent3, setpercent3] = useState(0);
+  const [percent4, setpercent4] = useState(0);
+  const [percent5, setpercent5] = useState(0);
+
+  const setP = () =>{
+    if(
+      isNaN(((jar[0].amount + jar[1].amount + jar[2].amount + jar[3].amount + jar[4].amount + jar[5].amount)/(jar[0].amountOld + jar[1].amountOld + jar[2].amountOld + jar[3].amountOld + jar[4].amountOld + jar[5].amountOld))*100)
+      )
+    {
+      setpercent(0);
+    }
+    else{
+      setpercent((((jar[0].amount + jar[1].amount + jar[2].amount + jar[3].amount + jar[4].amount + jar[5].amount)/(jar[0].amountOld + jar[1].amountOld + jar[2].amountOld + jar[3].amountOld + jar[4].amountOld + jar[5].amountOld))*100));
+      console.log(percent);
+    }
+
+    if(
+        isNaN(((jar[0].amount * 100) / jar[0].amountOld))
+      )
+    {
+      setpercent0(0);
+    }
+    else{
+      setpercent0(((jar[0].amount * 100) / jar[0].amountOld))
+    }
+
+    
+    if(
+        isNaN(((jar[1].amount * 100) / jar[1].amountOld))
+      )
+    {
+      setpercent1(1);
+    }
+    else{
+      setpercent1(((jar[1].amount * 100) / jar[1].amountOld))
+    }
+
+    if(
+        isNaN(((jar[2].amount * 100) / jar[2].amountOld))
+      )
+    {
+      setpercent2(2);
+    }
+    else{
+      setpercent2(((jar[2].amount * 100) / jar[2].amountOld))
+    }
+
+    if(
+        isNaN(((jar[3].amount * 100) / jar[3].amountOld))
+      )
+    {
+      setpercent3(3);
+    }
+    else{
+      setpercent3(((jar[3].amount * 100) / jar[3].amountOld))
+    }
+
+    if(
+        isNaN(((jar[4].amount * 100) / jar[4].amountOld))
+      )
+    {
+      setpercent4(4);
+    }
+    else{
+      setpercent4(((jar[4].amount * 100) / jar[4].amountOld))
+    }
+
+    if(
+        isNaN(((jar[5].amount * 100) / jar[5].amountOld))
+      )
+    {
+      setpercent5(5);
+    }
+    else{
+      setpercent5(((jar[5].amount * 100) / jar[5].amountOld))
     }
   }
 
@@ -215,7 +299,7 @@ const HomeScreen = () => {
             <ViewTw className='flex-row p-4'>
               <ViewTw className='rounded-full w-20 h-20 justify-center items-center'>
                 <ViewTw className='opacity-10 w-full absolute bg-gray-200 h-full rounded-full'></ViewTw>
-                <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={(((jar[0].amount + jar[1].amount + jar[2].amount + jar[3].amount + jar[4].amount + jar[5].amount)/(jar[0].amountOld + jar[1].amountOld + jar[2].amountOld + jar[3].amountOld + jar[4].amountOld + jar[5].amountOld))*100)} activeStrokeColor='#dee2e6' />
+                <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={percent} activeStrokeColor='#dee2e6' />
               </ViewTw>
               <ViewTw className='flex-1 h-fit justify-center px-4'>
                 <TextTw className='text-base text-gray-300'>Số dư khả dụng</TextTw>
@@ -236,7 +320,7 @@ const HomeScreen = () => {
             <ViewTw className='flex-row p-4'>
               <ViewTw className='rounded-full w-20 h-20 justify-center items-center'>
                 <ViewTw className='opacity-10 w-full absolute bg-gray-200 h-full rounded-full'></ViewTw>
-                <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={(((jar[0].amountOld + jar[1].amountOld + jar[2].amountOld + jar[3].amountOld + jar[4].amountOld + jar[5].amountOld)/(jar[0].amountOld + jar[1].amountOld + jar[2].amountOld + jar[3].amountOld + jar[4].amountOld + jar[5].amountOld))*100)} activeStrokeColor='#dee2e6' />
+                <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={100} activeStrokeColor='#dee2e6' />
               </ViewTw>
               <ViewTw className='flex-1 h-fit justify-center px-4'>
                 <TextTw className='text-base text-gray-300'>Tổng tài sản</TextTw>
@@ -294,7 +378,7 @@ const HomeScreen = () => {
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={Number(((jar[0].amount * 100) / jar[0].amountOld).toFixed(2)) / 100}
+                  progress={Number(percent0) / 100}
                   color='#3d405b'
                 />
               </ViewTw>
@@ -316,7 +400,7 @@ const HomeScreen = () => {
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={Number(((jar[1].amount * 100) / jar[1].amountOld).toFixed(2)) / 100}
+                  progress={Number(percent1) / 100}
                   color='#3d405b'
                 />
               </ViewTw>
@@ -338,7 +422,7 @@ const HomeScreen = () => {
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={Number(((jar[2].amount * 100) / jar[2].amountOld).toFixed(2)) / 100}
+                  progress={Number(percent2) / 100}
                   color='#3d405b'
                 />
               </ViewTw>
@@ -360,7 +444,7 @@ const HomeScreen = () => {
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={Number(((jar[3].amount * 100) / jar[3].amountOld).toFixed(2)) / 100}
+                  progress={Number(percent3) / 100}
                   color='#3d405b'
                 />
               </ViewTw>
@@ -382,7 +466,7 @@ const HomeScreen = () => {
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={Number(((jar[4].amount * 100) / jar[4].amountOld).toFixed(2)) / 100}
+                  progress={Number(percent4) / 100}
                   color='#3d405b'
                 />
               </ViewTw>
@@ -404,7 +488,7 @@ const HomeScreen = () => {
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={Number(((jar[5].amount * 100) / jar[5].amountOld).toFixed(2)) / 100}
+                  progress={Number(percent5) / 100}
                   color='#3d405b'
                 />
               </ViewTw>
