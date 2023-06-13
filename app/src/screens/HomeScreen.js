@@ -195,7 +195,6 @@ const HomeScreen = () => {
   }
 
   useEffect(() => {
-    setLoading(false);
     if (jar[0].amount) {
       setEssentials([jar[0].amount]);
     }
@@ -254,13 +253,20 @@ const HomeScreen = () => {
       setCharityPercent([jar[5].percent]);
     }
 
+
+  }, [jar[0], jar[1], jar[2], jar[3], jar[4], jar[5]]);
+
+  useEffect(() => {
     if (education, enjoyment, essentials, savings, investment, charity) {
       setTotalMoneyOld(jar[0].amountOld + jar[1].amountOld + jar[2].amountOld + jar[3].amountOld + jar[4].amountOld + jar[5].amountOld);
       setTotalMoney(jar[0].amount + jar[1].amount + jar[2].amount + jar[3].amount + jar[4].amount + jar[5].amount);
       setLoading(false);
     }
-  }, [jar[0], jar[1], jar[2], jar[3], jar[4], jar[5]]);
+  }, [education, enjoyment, essentials, savings, investment, charity])
 
+  useEffect(() => {
+    console.log(isLoading);
+  }, [isLoading]);
 
   return (
     <ScrollView className='flex-1' overScrollMode='never' showsVerticalScrollIndicator={false}>{
