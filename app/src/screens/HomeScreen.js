@@ -17,34 +17,41 @@ const ImageTw = styled(Image);
 const LinearGradientTw = styled(LinearGradient);
 const ScrollviewTw = styled(ScrollView);
 
-const formatNumber = (number) => {
-  const numberString = number.toString().replace(/\s/g, '');
-  const length = numberString.length;
-  const numOfDots = Math.floor((length - 1) / 3);
-  let formattedString = '';
-  for (let i = 0; i < length; i++) {
-    formattedString += numberString[i];
-    if ((length - i - 1) % 3 === 0 && i !== length - 1) {
-      formattedString += ',';
-    }
-  }
+// const formatNumber = (number) => {
+//   const numberString = number.toString().replace(/\s/g, '');
+//   const length = numberString.length;
+//   const numOfDots = Math.floor((length - 1) / 3);
+//   let formattedString = '';
+//   for (let i = 0; i < length; i++) {
+//     formattedString += numberString[i];
+//     if ((length - i - 1) % 3 === 0 && i !== length - 1) {
+//       formattedString += ',';
+//     }
+//   }
 
+//   return formattedString;
+// };
+
+const formatNumber = (number) => {
+  const roundedNumber = Math.round(number);
+  const formattedString = roundedNumber.toLocaleString();
   return formattedString;
 };
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const [isLoading, setLoading] = useState(true);
   const [progressValue, setPValue] = useState(50);
 
   //Total:
   const [totalMoney, setTotalMoney] = useState(0);
-
+  const [totalMoneyOld, setTotalMoneyOld] = useState(0);
 
   const [Income, setIncome] = useState(0);
   const [Expence, setExpense] = useState(0);
 
   //6Jar
-  const [essentials, setEssentials] = useState(5420000);
+  const [essentials, setEssentials] = useState(0);
   const [education, setEducation] = useState(0);
   const [savings, setSavings] = useState(0);
   const [enjoyment, setEnjoyment] = useState(0);
@@ -52,12 +59,12 @@ const HomeScreen = () => {
   const [charity, setCharity] = useState(0);
 
   //6Jar old
-  const [essentialsOld, setEssentialsOld] = useState(5500000);
-  const [educationOld, setEducationOld] = useState(1000000);
-  const [savingsOld, setSavingsOld] = useState(1000000);
-  const [enjoymentOld, setEnjoymentOld] = useState(1000000);
-  const [investmentOld, setInvestmentOld] = useState(1000000);
-  const [charityOld, setCharityOld] = useState(500000);
+  const [essentialsOld, setEssentialsOld] = useState(1);
+  const [educationOld, setEducationOld] = useState(1);
+  const [savingsOld, setSavingsOld] = useState(1);
+  const [enjoymentOld, setEnjoymentOld] = useState(1);
+  const [investmentOld, setInvestmentOld] = useState(1);
+  const [charityOld, setCharityOld] = useState(1);
 
   //%defaul
   const [essentialsPercent, setEssentialsPercent] = useState(55);
@@ -159,28 +166,32 @@ const HomeScreen = () => {
   const fetchJars = async () => {
     const jarList = await JARMODULE.getJars();
     setjar(jarList);
-
   };
 
   const fetchRevenue = async () => {
     const jarList = await JARMODULE.getRevenue();
     setrevenue(jarList);
+<<<<<<< Updated upstream
     setP();
     
+=======
+
+>>>>>>> Stashed changes
   };
 
   useEffect(() => {
-    //setTotalMoney(essentialsOld + educationOld + enjoymentOld + savingsOld + charityOld + investmentOld);
 
     createTable();
     createRows();
     fetchJars();
-
     createTable2();
     createRows2();
     fetchRevenue();
 
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
   }, [isFocused])
 
   const moveScreen = (params, id) => {
@@ -192,6 +203,7 @@ const HomeScreen = () => {
     }
   }
 
+<<<<<<< Updated upstream
   const [percent, setpercent] = useState(0);
   const [percent0, setpercent0] = useState(0);
   const [percent1, setpercent1] = useState(0);
@@ -273,10 +285,79 @@ const HomeScreen = () => {
       setpercent5(((jar[5].amount * 100) / jar[5].amountOld))
     }
   }
+=======
+  useEffect(() => {
+    setLoading(false);
+    if (jar[0].amount) {
+      setEssentials([jar[0].amount]);
+    }
+    if (jar[1].amount) {
+      setEducation([jar[1].amount]);
+    }
+    if (jar[2].amount) {
+      setSavings([jar[2].amount]);
+    }
+    if (jar[3].amount) {
+      setEnjoyment([jar[3].amount]);
+    }
+    if (jar[4].amount) {
+      setInvestment([jar[4].amount]);
+    }
+    if (jar[5].amount) {
+      setCharity([jar[5].amount]);
+    }
+
+    if (jar[0].amountOld) {
+      setEssentialsOld([jar[0].amountOld]);
+    }
+    if (jar[1].amountOld) {
+      setEducationOld([jar[1].amountOld]);
+    }
+    if (jar[2].amountOld) {
+      setSavingsOld([jar[2].amountOld]);
+    }
+    if (jar[3].amountOld) {
+      setEnjoymentOld([jar[3].amountOld]);
+    }
+    if (jar[4].amountOld) {
+      setInvestmentOld([jar[4].amountOld]);
+    }
+    if (jar[5].amountOld) {
+      setCharityOld([jar[5].amountOld]);
+    }
+
+
+    if (jar[0].percent) {
+      setEssentialsPercent([jar[0].percent]);
+    }
+    if (jar[1].percent) {
+      setEducationPercent([jar[1].percent]);
+    }
+    if (jar[2].percent) {
+      setSavingsPercent([jar[2].percent]);
+    }
+    if (jar[3].percent) {
+      setEnjoymentPercent([jar[3].percent]);
+    }
+    if (jar[4].percent) {
+      setInvestmentPercent([jar[4].percent]);
+    }
+    if (jar[5].percent) {
+      setCharityPercent([jar[5].percent]);
+    }
+
+    if (education, enjoyment, essentials, savings, investment, charity) {
+      setTotalMoneyOld(jar[0].amountOld + jar[1].amountOld + jar[2].amountOld + jar[3].amountOld + jar[4].amountOld + jar[5].amountOld);
+      setTotalMoney(jar[0].amount + jar[1].amount + jar[2].amount + jar[3].amount + jar[4].amount + jar[5].amount);
+      setLoading(false);
+    }
+  }, [jar[0], jar[1], jar[2], jar[3], jar[4], jar[5]]);
+
+>>>>>>> Stashed changes
 
   return (
-    <ScrollView className='flex-1' overScrollMode='never' showsVerticalScrollIndicator={false}>
-      <ViewTw className='py-5' style={{ backgroundColor: "#0f172a" }}>
+    <ScrollView className='flex-1' overScrollMode='never' showsVerticalScrollIndicator={false}>{
+      isLoading ? (<ViewTw></ViewTw>) : (<ViewTw className='py-5' style={{ backgroundColor: "#0f172a" }}>
         <ViewTw className='px-5 flex-row items-center'>
           <ImageTw className='w-12 h-12 rounded-full grow-0 ' source={require('../assets/logo/logo.jpeg')} />
           <ViewTw className='grow px-4 justify-center'>
@@ -299,11 +380,15 @@ const HomeScreen = () => {
             <ViewTw className='flex-row p-4'>
               <ViewTw className='rounded-full w-20 h-20 justify-center items-center'>
                 <ViewTw className='opacity-10 w-full absolute bg-gray-200 h-full rounded-full'></ViewTw>
+<<<<<<< Updated upstream
                 <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={percent} activeStrokeColor='#dee2e6' />
+=======
+                <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={((totalMoney / totalMoneyOld) * 100)} activeStrokeColor='#dee2e6' />
+>>>>>>> Stashed changes
               </ViewTw>
               <ViewTw className='flex-1 h-fit justify-center px-4'>
                 <TextTw className='text-base text-gray-300'>Số dư khả dụng</TextTw>
-                <TextTw className='text-2xl text-gray-300' style={{ fontFamily: Popins[600] }} >{formatNumber(jar[0].amount + jar[1].amount + jar[2].amount + jar[3].amount + jar[4].amount + jar[5].amount)}{' '}₫</TextTw>
+                <TextTw className='text-2xl text-gray-300' style={{ fontFamily: Popins[600] }} >{formatNumber(totalMoney)}{' '}₫</TextTw>
               </ViewTw>
             </ViewTw>
             <ViewTw className='w-full items-center  px-4' ><ViewTw className='w-full bg-white opacity-10' style={{ height: 1 }}></ViewTw></ViewTw>
@@ -320,11 +405,15 @@ const HomeScreen = () => {
             <ViewTw className='flex-row p-4'>
               <ViewTw className='rounded-full w-20 h-20 justify-center items-center'>
                 <ViewTw className='opacity-10 w-full absolute bg-gray-200 h-full rounded-full'></ViewTw>
+<<<<<<< Updated upstream
                 <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={100} activeStrokeColor='#dee2e6' />
+=======
+                {/* <CircularProgress radius={32} activeStrokeWidth={6} inActiveStrokeWidth={6} valueSuffix={'%'} value={((totalMoney/totalMoneyOld) * 100)} activeStrokeColor='#dee2e6' /> */}
+>>>>>>> Stashed changes
               </ViewTw>
               <ViewTw className='flex-1 h-fit justify-center px-4'>
                 <TextTw className='text-base text-gray-300'>Tổng tài sản</TextTw>
-                <TextTw className='text-2xl text-gray-300' style={{ fontFamily: Popins[600] }} >{formatNumber(jar[0].amountOld + jar[1].amountOld + jar[2].amountOld + jar[3].amountOld + jar[4].amountOld + jar[5].amountOld)}{' '}₫</TextTw>
+                <TextTw className='text-2xl text-gray-300' style={{ fontFamily: Popins[600] }} >{formatNumber(totalMoneyOld)}{' '}₫</TextTw>
               </ViewTw>
             </ViewTw>
             <ViewTw className='w-full items-center  px-4' ><ViewTw className='w-full bg-white opacity-10' style={{ height: 1 }}></ViewTw></ViewTw>
@@ -369,16 +458,20 @@ const HomeScreen = () => {
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between grow'>
                   <TextTw className='text-lg font-semibold text-gray-300' >Thiết yếu</TextTw>
-                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(jar[0].amount) + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(essentials) + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between grow-0'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((jar[0].amount * 100) / jar[0].amountOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((essentials * 100) / essentialsOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
+<<<<<<< Updated upstream
                   progress={Number(percent0) / 100}
+=======
+                  progress={Number(((essentials * 100) / essentialsOld).toFixed(2)) / 100}
+>>>>>>> Stashed changes
                   color='#3d405b'
                 />
               </ViewTw>
@@ -391,16 +484,20 @@ const HomeScreen = () => {
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-lg font-semibold text-gray-300' >Giáo dục</TextTw>
-                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(jar[1].amount) + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(education) + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((jar[1].amount * 100) / jar[1].amountOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((education * 100) / educationOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
+<<<<<<< Updated upstream
                   progress={Number(percent1) / 100}
+=======
+                  progress={Number(((education * 100) / educationOld).toFixed(2)) / 100}
+>>>>>>> Stashed changes
                   color='#3d405b'
                 />
               </ViewTw>
@@ -413,16 +510,20 @@ const HomeScreen = () => {
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-lg font-semibold text-gray-300' >Tiết kiệm</TextTw>
-                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(jar[2].amount) + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(savings) + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((jar[2].amount * 100) / jar[2].amountOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number((savings * 100 / savingsOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
+<<<<<<< Updated upstream
                   progress={Number(percent2) / 100}
+=======
+                  progress={Number(((savings * 100) / savingsOld).toFixed(2)) / 100}
+>>>>>>> Stashed changes
                   color='#3d405b'
                 />
               </ViewTw>
@@ -435,16 +536,20 @@ const HomeScreen = () => {
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-lg font-semibold text-gray-300' >Huởng thụ</TextTw>
-                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(jar[3].amount) + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(enjoyment) + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((jar[3].amount * 100) / jar[3].amountOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((enjoyment * 100) / enjoymentOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
+<<<<<<< Updated upstream
                   progress={Number(percent3) / 100}
+=======
+                  progress={Number(((enjoyment * 100) / enjoymentOld).toFixed(2)) / 100}
+>>>>>>> Stashed changes
                   color='#3d405b'
                 />
               </ViewTw>
@@ -457,16 +562,20 @@ const HomeScreen = () => {
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-lg font-semibold text-gray-300' >Đầu tư</TextTw>
-                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(jar[4].amount) + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(investment) + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((jar[4].amount * 100) / jar[4].amountOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((investment * 100) / investmentOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
+<<<<<<< Updated upstream
                   progress={Number(percent4) / 100}
+=======
+                  progress={Number(((investment * 100) / investmentOld).toFixed(2)) / 100}
+>>>>>>> Stashed changes
                   color='#3d405b'
                 />
               </ViewTw>
@@ -479,16 +588,20 @@ const HomeScreen = () => {
               <ViewTw className='grow px-2'>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-lg font-semibold text-gray-300' >Thiện tâm</TextTw>
-                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(jar[5].amount) + " ₫"}</TextTw>
+                  <TextTw className='text-lg font-semibold' style={{ color: '#D55D92' }} >{formatNumber(charity) + " ₫"}</TextTw>
                 </ViewTw>
                 <ViewTw className='flex-row justify-between'>
                   <TextTw className='text-xs font-normal text-gray-500 ml-0.5' >Khả dụng</TextTw>
-                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((jar[5].amount * 100) / jar[5].amountOld).toFixed(2)) + "%"}</TextTw>
+                  <TextTw className='text-xs font-normal text-gray-300' >{Number(((charity * 100) / charityOld).toFixed(2)) + "%"}</TextTw>
                 </ViewTw>
                 <ProgressBar
                   styleAttr="Horizontal"
                   indeterminate={false}
+<<<<<<< Updated upstream
                   progress={Number(percent5) / 100}
+=======
+                  progress={Number(((charity * 100) / charityOld).toFixed(2)) / 100}
+>>>>>>> Stashed changes
                   color='#3d405b'
                 />
               </ViewTw>
@@ -496,9 +609,10 @@ const HomeScreen = () => {
             </TouchableOpacityTw>
           </ViewTw>
         </ViewTw>
-      </ViewTw>
-    </ScrollView>
+      </ViewTw>)
+    }
 
+    </ScrollView>
   )
 }
 
